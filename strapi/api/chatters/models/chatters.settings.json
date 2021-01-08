@@ -1,0 +1,26 @@
+{
+  "kind": "collectionType",
+  "collectionName": "chatters",
+  "info": {
+    "name": "chatter",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "uname": {
+      "type": "string"
+    },
+    "pass": {
+      "type": "string"
+    },
+    "friends": {
+      "type": "component",
+      "repeatable": true,
+      "component": "multiple.friends"
+    }
+  }
+}

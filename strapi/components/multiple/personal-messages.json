@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_multiple_personal_messages",
+  "info": {
+    "name": "personal_messages",
+    "icon": "allergies",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "text": {
+      "type": "string",
+      "required": true
+    },
+    "to": {
+      "type": "string",
+      "required": true
+    },
+    "sent_at": {
+      "type": "datetime",
+      "required": true
+    }
+  }
+}

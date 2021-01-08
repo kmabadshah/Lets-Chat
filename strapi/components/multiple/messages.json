@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_multiple_messages",
+  "info": {
+    "name": "messages",
+    "icon": "arrow-alt-circle-left",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "text": {
+      "type": "string",
+      "required": true
+    },
+    "sent_at": {
+      "type": "datetime"
+    }
+  }
+}

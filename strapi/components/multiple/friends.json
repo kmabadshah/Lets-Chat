@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_multiple_friends",
+  "info": {
+    "name": "friends",
+    "icon": "archive",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "uname": {
+      "type": "string",
+      "required": true
+    },
+    "messages_sent_by_me": {
+      "type": "component",
+      "repeatable": true,
+      "component": "multiple.messages"
+    },
+    "messages_sent_to_me": {
+      "type": "component",
+      "repeatable": true,
+      "component": "multiple.messages"
+    }
+  }
+}
