@@ -58,6 +58,15 @@ export default function Wrapper({ children, location }) {
 
     }, [])
 
+    React.useEffect(() => {
+        // update the user data on local update
+        if (user && token) {
+			axios.put(api+'/chatters/'+user.id, user, {
+				headers: { Authorization: `Bearer ${token}` }
+			}).then(null).catch(err => console.log(err))
+        }
+    }, [user])
+
     return (
         <Context.Provider value={{
             setUser, user,
