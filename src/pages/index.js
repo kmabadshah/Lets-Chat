@@ -1,22 +1,30 @@
-import React from "react"
-import { Link } from "gatsby"
+import React, {useState} from "react"
+import { Context } from '../components/wrapper.js'
+import { socketServer, loader } from "../shared/constants"
+import io from 'socket.io-client'
+import Layout from '../components/layout'
 
-import Layout from "../components/layout"
-import Image from "../components/image"
-import SEO from "../components/seo"
+import '../styles/css/index.css'
 
-const IndexPage = () => (
-  <Layout>
-    <SEO title="Home" />
-    <h1>Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great.</p>
-    <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
-      <Image />
-    </div>
-    <Link to="/page-2/">Go to page 2</Link> <br />
-    <Link to="/using-typescript/">Go to "Using TypeScript"</Link>
-  </Layout>
-)
+function Index(){
+	const { user, isLoading, socket, setSocket } = React.useContext(Context)
 
-export default IndexPage
+	React.useEffect(() => {
+		// connect to chat server
+		const tempSocket = io(socketServer, {
+			query: { uname: user.uname }
+		})
+		setSocket(tempSocket)
+
+	}, [])
+
+	return isLoading ? loader : (
+		<Layout>
+			<h1>Main user page</h1>
+		</Layout>
+	)
+}
+export default Index
+
+
+

@@ -5,3 +5,9 @@
  */
 
 // You can delete this file if you're not using it
+
+// const React = require("react")
+
+// exports.onRenderBody = ({ setPostBodyComponents }) => {
+//   setPostBodyComponents([<script src="/socket.io/socket.io.js"></script>])
+// }

@@ -1,0 +1,28 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root,
+body,
+#___gatsby,
+#gatsby-focus-wrapper {
+  height: 100vh;
+}
+
+a, button {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#layout #navbar {
+  display: grid;
+  grid-template: auto/1fr 1fr 1fr;
+}
+#layout #navbar * {
+  border: 1px solid red;
+  text-align: center;
+}
+
+/*# sourceMappingURL=index.css.map */
