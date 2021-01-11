@@ -1,0 +1,60 @@
+#chat {
+	height: 100%;
+	border: 1px solid red;
+	display: grid;
+	align-content: space-between;
+
+	#top {
+		display: grid;
+		grid-template: auto / auto auto auto;
+		justify-content: space-between;
+
+		// border: 3px solid green;
+		// * { border: 3px solid purple; }
+
+		// a {
+		// 	justify-self: start;
+		// }
+
+		// h1 {
+		// 	justify-self: center;
+		// }
+
+		// p {
+		// 	justify-self: end;
+		// }
+	}
+
+	#middle {
+		border: 3px solid purple;
+
+		.msg-source {
+			text-align: right;
+			// background-color: green;
+			margin: 10px 0;
+		}
+
+
+		.msg-target {
+			text-align: left;
+			// background-color: red;
+			margin: 10px 0;
+		}
+	}
+	
+	#bottom {
+		display: grid;
+		grid-template: 2.5rem / 2fr 1fr;
+		// border: 3px solid purple;
+
+		* {
+			height: 100%; width: 100%;
+			border: 2px solid green;
+		}
+
+		input {
+			font-size: 1rem;
+		}
+	}
+
+}

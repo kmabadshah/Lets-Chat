@@ -15,7 +15,7 @@ export default function Login(){
 
         // data -> db check
         const res = await axios.get(api+'/chatters?'+qs.stringify({
-            _where: { uname: d.uname }
+            _where: { uname: d.uname, pass: d.pass }
         }), { headers: { Authorization: `Bearer ${token}` } })
 
         if (res.data[0]) {
@@ -24,7 +24,7 @@ export default function Login(){
             // create token with user data and store into cache
             jwtpkg.sign({ uname: d.uname }, secret, (err, jwt) => {
                 err ? console.log(err) :
-                localStorage.setItem('token', jwt)
+                    localStorage.setItem('token', jwt)
             })
 
             // redirect
@@ -39,7 +39,7 @@ export default function Login(){
         console.log('login')
     }, [])
 
-    return isLoading ? loader : (
+    return (
         <div>
             <form autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
                 <input name="uname" autoComplete="false" placeholder="username" ref={register({

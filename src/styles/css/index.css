@@ -1,3 +1,38 @@
+#chat {
+  height: 100%;
+  border: 1px solid red;
+  display: grid;
+  align-content: space-between;
+}
+#chat #top {
+  display: grid;
+  grid-template: auto/auto auto auto;
+  justify-content: space-between;
+}
+#chat #middle {
+  border: 3px solid purple;
+}
+#chat #middle .msg-source {
+  text-align: right;
+  margin: 10px 0;
+}
+#chat #middle .msg-target {
+  text-align: left;
+  margin: 10px 0;
+}
+#chat #bottom {
+  display: grid;
+  grid-template: 2.5rem/2fr 1fr;
+}
+#chat #bottom * {
+  height: 100%;
+  width: 100%;
+  border: 2px solid green;
+}
+#chat #bottom input {
+  font-size: 1rem;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -11,7 +46,7 @@ body,
   height: 100vh;
 }
 
-a, button {
+a, button, input[type=submit] {
   text-decoration: none;
   cursor: pointer;
 }
@@ -23,6 +58,14 @@ a, button {
 #layout #navbar * {
   border: 1px solid red;
   text-align: center;
+}
+
+#home .row-friend {
+  display: grid;
+  grid-template: auto/repeat(3, auto);
+  justify-content: space-between;
+  border: 1px solid purple;
+  margin: 10px 0 0 0;
 }
 
 /*# sourceMappingURL=index.css.map */

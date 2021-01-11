@@ -13,7 +13,7 @@ body,
 	height: 100vh;
 }
 
-a, button {
+a, button, input[type='submit'] {
 	text-decoration: none;
 	cursor: pointer;
 }
@@ -28,5 +28,17 @@ a, button {
 			// background-color: green;
 			text-align: center;
 		}
+	}
+}
+
+#home {
+	.row-friend {
+		display: grid;
+		grid-template: auto / repeat(3, auto);
+		justify-content: space-between; 
+		border: 1px solid purple; 
+		margin: 10px 0 0 0;
+
+		// * { border: 2px solid purple; }
 	}
 }

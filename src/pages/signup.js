@@ -33,7 +33,7 @@ function Signup(){
         console.log('Signup')
     }, [])
 
-    return isLoading ? loader : (
+    return (
         <div>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <input name="uname" placeholder="username" ref={register({

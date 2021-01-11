@@ -12,6 +12,8 @@ export default function Wrapper({ children, location }) {
     const [token, setToken] = React.useState()
     const [finishedPainting, setFinishedPainting] = React.useState(false)
     const [socket, setSocket] = React.useState()
+    const [friendIndex, setFriendIndex] = React.useState()
+    const [connectedUsers, setConnectedUsers] = React.useState([])
 
     React.useLayoutEffect(() => {
         let foundUser = false
@@ -52,6 +54,9 @@ export default function Wrapper({ children, location }) {
                 (location.pathname === '/login' || location.pathname === '/signup'))
                 navigate('/')
 
+            // under no circumstances allowed to directly access /chat
+            else if (location.pathname === '/chat') navigate('/')
+
             setTimeout(() => setIsLoading(false), 1000)
         })()
 
@@ -61,17 +66,28 @@ export default function Wrapper({ children, location }) {
     React.useEffect(() => {
         // update the user data on local update
         if (user && token) {
-			axios.put(api+'/chatters/'+user.id, user, {
-				headers: { Authorization: `Bearer ${token}` }
-			}).then(null).catch(err => console.log(err))
+            axios.put(api+'/chatters/'+user.id, user, {
+                headers: { Authorization: `Bearer ${token}` }
+            }).then(null).catch(err => console.log(err))
         }
     }, [user])
+
+    React.useEffect(() => {
+        if (socket) {
+            socket.on('connectedUsers', (d) => setConnectedUsers(d))
+            socket.on('message', d => setUser(d))
+
+            return () => socket.off()
+        }
+    }, [socket])
 
     return (
         <Context.Provider value={{
             setUser, user,
             isLoading, token,
-            socket, setSocket
+            socket, setSocket,
+            friendIndex, setFriendIndex,
+            connectedUsers, setConnectedUsers
         }}>
             {getView()}
         </Context.Provider>

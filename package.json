@@ -5,6 +5,7 @@
   "version": "0.1.0",
   "author": "KMA Badshah",
   "dependencies": {
+    "@hookform/error-message": "^0.0.5",
     "axios": "^0.21.1",
     "bootstrap": "^4.5.3",
     "gatsby": "^2.26.1",
