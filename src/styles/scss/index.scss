@@ -47,22 +47,24 @@ a, button, input[type='submit'] {
 #home {
 	.row-friend {
 		display: grid;
-		grid-template: auto auto / 1fr 1fr 1fr;
+		grid-template: auto auto / repeat(3, auto);
 		justify-content: stretch; 
 		margin: 10px 0 0 0;
 		padding: 0 0.75rem;
 		
 		div {
-			border: 1px solid orange;
+			// border: 1px solid orange;
 			color: $ash-1;
 		}
 
 		div:nth-child(1) {
 			border-radius: 50%;
-			width: 4rem; height: 4rem;
+			width: 3.5rem; height: 3.5rem;
 			display: flex; align-items: center; justify-content: center;
-			grid-column: 1/2;
 			padding: 0;
+			// border: 1px solid orange;
+			background-color: $orange;
+			color: $black;
 		}
 	}
 
@@ -83,7 +85,7 @@ a, button, input[type='submit'] {
 
 			border: none;
 			border-radius: 50%;
-			width: 3rem; height: 3rem;
+			width: 3.5rem; height: 3.5rem;
 			background-color: #E6EBE0;
 			font-size: 1.25rem;
 
@@ -95,7 +97,7 @@ a, button, input[type='submit'] {
 				background-color: $orange;
 				height: 1.1rem; width: 1.1rem;
 				position: absolute;
-				bottom: 0;
+				bottom: -2.5px; right: -2.5px;
 				border-radius: 50%;
 			}
 		}
