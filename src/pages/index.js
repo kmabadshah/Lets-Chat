@@ -27,19 +27,60 @@ function Index(){
 		navigate('/chat')
 	}
 
+	const getViewActiveFriends = () => {
+		// if online and a friend of current user
+		const finalArr = []
+
+		connectedUsers.forEach(cu => {
+			Array.from({ length: 15 }, (_, i) => {
+				finalArr.push(
+					<button>
+						{i + 1}
+					</button>
+				)
+			})
+
+			// user.friends.map(f => {
+			// 	cu.uname === f.uname && finalArr.push((() => {
+			// 		return (
+			// 			<button>
+			// 				{f.image ? 'img' : f.uname.toUpperCase()[0]}
+			// 			</button>
+			// 		)
+			// 	})())
+			// })
+		})
+
+		return <div class="row-active">{finalArr}</div>
+	}
+
 	const getViewFriends = () => {
 		return user.friends.map((f, i) => {
 			return (
 				<div className='row-friend'>
-					<p>{i+1} . {f.uname}</p>
+					{/* <p>{i+1} . {f.uname}</p> */}
 
-					<p>status:
-						{ connectedUsers.find(u => u.uname === f.uname) ? 'Online' : 'Offline' }
-					</p>
 
-					<button onClick={() => onChatClick(i)}
-						className='btn-chat'
-					>chat</button>
+					{/* <p>status: */}
+					{/* 	{ connectedUsers.find(u => u.uname === f.uname) ? 'Online' : 'Offline' } */}
+					{/* </p> */}
+
+					{/* <button onClick={() => onChatClick(i)} */}
+					{/* 	className='btn-chat' */}
+					{/* >chat</button> */}
+
+
+					<div className="img">img</div>
+
+					<div>
+						<h3>Jane Doe</h3>
+						<h5>I am a rockster who</h5>
+					</div>
+
+					<div>
+						<h5> 24th July </h5>
+						<h5>10:30 pm</h5>
+					</div>
 				</div>
 			)
 		})
@@ -48,6 +89,7 @@ function Index(){
 	return (
 		<Layout>
 			<div id='home'>
+				{getViewActiveFriends()}
 				{getViewFriends()}
 			</div>
 		</Layout>

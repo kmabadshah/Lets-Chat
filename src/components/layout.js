@@ -6,7 +6,6 @@ function Layout({ children }){
 		<div id='layout'>
 			<div id='navbar'>
 				<Link to='/'>Home</Link>
-				<Link to='/add-friend'>Add Friend</Link>
 				<Link to='/settings'>Settings</Link>
 			</div>
 			{ children }
