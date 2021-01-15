@@ -32,57 +32,64 @@ function Index(){
 		const finalArr = []
 
 		connectedUsers.forEach(cu => {
-			Array.from({ length: 15 }, (_, i) => {
-				finalArr.push(
-					<button>
-						{i + 1}
-					</button>
-				)
+			user.friends.map((f, i) => {
+				cu.uname === f.uname && finalArr.push((() => {
+					return (
+						<button onClick={() => onChatClick(i)}>
+							{f.image ? 'img' : f.uname.toUpperCase()[0]}
+						</button>
+					)
+				})())
 			})
-
-			// user.friends.map(f => {
-			// 	cu.uname === f.uname && finalArr.push((() => {
-			// 		return (
-			// 			<button>
-			// 				{f.image ? 'img' : f.uname.toUpperCase()[0]}
-			// 			</button>
-			// 		)
-			// 	})())
-			// })
 		})
 
-		return <div class="row-active">{finalArr}</div>
+		return (
+			<div className="row-active">
+				{finalArr.length !== 0 ? finalArr :
+				<h4>None of your friends are online now.</h4>}
+			</div>
+		)
 	}
 
 	const getViewFriends = () => {
 		return user.friends.map((f, i) => {
+
+			// join all messages, sort in desending order and get the first item
+			const { text:latestMessage, sent_at } = [...f.messagesSentByMe, ...f.messagesSentToMe]
+				.sort((m1, m2) => {
+					return Date.parse(m2.sent_at) - Date.parse(m1.sent_at)
+				})[0]
+
+			const latestMsgDate = {
+				day: new Date(sent_at).getDate(),
+				month: new Date(sent_at).toLocaleString('default', { month: 'long' }),
+				get hourAndMinute() {
+					const hour = new Date(sent_at).getHours()
+					const minute = new Date(sent_at).getMinutes()
+					let stringToReturn = ':' + minute
+
+					if (hour > 12) stringToReturn = (hour - 12) + stringToReturn + ' pm'
+					else stringToReturn = hour + stringToReturn + ' am'
+
+					return stringToReturn
+				}
+			}
+
 			return (
-				<div className='row-friend'>
-					{/* <p>{i+1} . {f.uname}</p> */}
-
-
-					{/* <p>status: */}
-					{/* 	{ connectedUsers.find(u => u.uname === f.uname) ? 'Online' : 'Offline' } */}
-					{/* </p> */}
-
-					{/* <button onClick={() => onChatClick(i)} */}
-					{/* 	className='btn-chat' */}
-					{/* >chat</button> */}
-
-
+				<div className='row-friend' onClick={() => onChatClick(i)}>
 					<div className="img">img</div>
 
-					<div>
-						<h3>Jane Doe</h3>
-						<h5>I am a rockster who</h5>
-					</div>
+						<div>
+						<h3> {f.uname} </h3>
+							<h5> {latestMessage} </h5>
+						</div>
 
-					<div>
-						<h5> 24th July </h5>
-						<h5>10:30 pm</h5>
-					</div>
+						<div>
+						<h5> {latestMsgDate.day}th {latestMsgDate.month} </h5>
+							<h5> {latestMsgDate.hourAndMinute} </h5>
+						</div>
 				</div>
-			)
+					)
 		})
 	}
 
@@ -93,7 +100,7 @@ function Index(){
 				{getViewFriends()}
 			</div>
 		</Layout>
-	)
+			)
 }
 export default Index
 

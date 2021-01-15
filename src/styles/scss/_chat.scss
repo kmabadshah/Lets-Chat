@@ -1,37 +1,44 @@
+@import 'variables';
+
 #chat {
 	height: 100%;
-	border: 1px solid red;
 	display: grid;
+	background-color: $black;
 	align-content: space-between;
 
 	#top {
-		display: grid;
-		grid-template: auto / auto auto auto;
-		justify-content: space-between;
+		display: flex;
+		padding: 1.25rem;
+		background-color: $orange;
 
-		// border: 3px solid green;
-		// * { border: 3px solid purple; }
+		h2 {
+			margin: auto;
+			color: $black;
+			font-weight: 300;
+		}
 
-		// a {
-		// 	justify-self: start;
-		// }
-
-		// h1 {
-		// 	justify-self: center;
-		// }
-
-		// p {
-		// 	justify-self: end;
-		// }
+		.btn-back {
+			font-size: 1.25rem;
+			align-self: center;
+		}
 	}
 
 	#middle {
-		border: 3px solid purple;
+		overflow: auto;
 
-		.msg-source {
-			text-align: right;
-			// background-color: green;
-			margin: 10px 0;
+		.check-circle {
+			font-size: 1.5rem;
+			margin-right: 1rem;
+			align-self: center;
+		}
+
+		.msg-received-row {
+			@include msg-row(left)
+		}
+
+
+		.msg-sent-row {
+			@include msg-row(right) 
 		}
 
 
@@ -41,20 +48,35 @@
 			margin: 10px 0;
 		}
 	}
-	
-	#bottom {
-		display: grid;
-		grid-template: 2.5rem / 2fr 1fr;
-		// border: 3px solid purple;
 
-		* {
-			height: 100%; width: 100%;
-			border: 2px solid green;
+	#bottom {
+		display: flex;
+		height: 2rem;
+		border: 1px solid white;
+
+		* { 
+			background-color: transparent; 
+			color: white; 
+			outline: none;
+			border: none;
+			border: 1px solid white;
+			height: 100%;
 		}
 
-		input {
+		:nth-child(1) {
+			// height: 100%;
+		}
+
+		:nth-child(2) {
+			font-size: 1rem;
+			width: 100%;
+			background-color: transparent;
+			border-bottom: 3px solid white;
+		}
+
+		:nth-child(3) {
 			font-size: 1rem;
 		}
-	}
 
+	}
 }

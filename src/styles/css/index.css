@@ -1,35 +1,94 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap");
 #chat {
   height: 100%;
-  border: 1px solid red;
   display: grid;
+  background-color: #122C34;
   align-content: space-between;
 }
 #chat #top {
-  display: grid;
-  grid-template: auto/auto auto auto;
-  justify-content: space-between;
+  display: flex;
+  padding: 1.25rem;
+  background-color: #EF7B6C;
+}
+#chat #top h2 {
+  margin: auto;
+  color: #122C34;
+  font-weight: 300;
+}
+#chat #top .btn-back {
+  font-size: 1.25rem;
+  align-self: center;
 }
 #chat #middle {
-  border: 3px solid purple;
+  overflow: auto;
 }
-#chat #middle .msg-source {
-  text-align: right;
-  margin: 10px 0;
+#chat #middle .check-circle {
+  font-size: 1.5rem;
+  margin-right: 1rem;
+  align-self: center;
+}
+#chat #middle .msg-received-row {
+  display: flex;
+  margin: 2rem 0;
+}
+#chat #middle .msg-received-row > :nth-child(1) {
+  display: flex;
+  background-color: #A1CCA5;
+  border-radius: 0 30px 30px 0;
+  border-radius: 0 30px 30px 0;
+  height: 100%;
+  padding: 0.75rem 1rem 0.75rem 0.75rem;
+  max-width: 70vw;
+  line-break: anywhere;
+}
+#chat #middle .msg-received-row > :nth-child(2) {
+  color: rgba(153, 153, 153, 0.5);
+  font-size: 0.8rem;
+  margin: auto 0 auto 1rem;
+}
+#chat #middle .msg-sent-row {
+  display: flex;
+  margin: 2rem 0;
+}
+#chat #middle .msg-sent-row > :nth-child(2) {
+  display: flex;
+  background-color: #A1CCA5;
+  border-radius: 0 30px 30px 0;
+  border-radius: 30px 0 0 30px;
+  height: 100%;
+  padding: 0.75rem 1rem 0.75rem 0.75rem;
+  max-width: 70vw;
+  line-break: anywhere;
+}
+#chat #middle .msg-sent-row > :nth-child(1) {
+  color: rgba(153, 153, 153, 0.5);
+  font-size: 0.8rem;
+  margin: auto 1rem auto auto;
 }
 #chat #middle .msg-target {
   text-align: left;
   margin: 10px 0;
 }
 #chat #bottom {
-  display: grid;
-  grid-template: 2.5rem/2fr 1fr;
+  display: flex;
+  height: 2rem;
+  border: 1px solid white;
 }
 #chat #bottom * {
+  background-color: transparent;
+  color: white;
+  outline: none;
+  border: none;
+  border: 1px solid white;
   height: 100%;
-  width: 100%;
-  border: 2px solid green;
 }
-#chat #bottom input {
+#chat #bottom :nth-child(2) {
+  font-size: 1rem;
+  width: 100%;
+  background-color: transparent;
+  border-bottom: 3px solid white;
+}
+#chat #bottom :nth-child(3) {
   font-size: 1rem;
 }
 
@@ -37,6 +96,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Roboto";
 }
 
 :root,
@@ -74,12 +134,18 @@ a, button, input[type=submit] {
 #home .row-friend {
   display: grid;
   grid-template: auto auto/repeat(3, auto);
-  justify-content: stretch;
   margin: 10px 0 0 0;
   padding: 0 0.75rem;
 }
 #home .row-friend div {
   color: #999999;
+  display: flex;
+  flex-direction: column;
+}
+#home .row-friend div :nth-child(1) {
+  flex: 1;
+  display: flex;
+  align-items: center;
 }
 #home .row-friend div:nth-child(1) {
   border-radius: 50%;
@@ -88,9 +154,13 @@ a, button, input[type=submit] {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0;
   background-color: #EF7B6C;
   color: #122C34;
+}
+#home .row-friend div:nth-child(3) {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 }
 #home .row-active {
   display: flex;
@@ -99,6 +169,12 @@ a, button, input[type=submit] {
   scrollbar-width: none;
   -ms-overflow-style: none;
   border-bottom: 0.1px solid rgba(153, 153, 153, 0.3);
+}
+#home .row-active h4 {
+  color: #999999;
+  text-align: center;
+  padding: 0;
+  margin: auto;
 }
 #home .row-active::-webkit-scrollbar {
   width: 0;

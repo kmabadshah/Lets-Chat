@@ -1,10 +1,12 @@
 @use "./chat";
 @import './variables';
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap');
 
 * {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
+	font-family: 'Roboto';
 }
 
 :root,
@@ -48,23 +50,40 @@ a, button, input[type='submit'] {
 	.row-friend {
 		display: grid;
 		grid-template: auto auto / repeat(3, auto);
-		justify-content: stretch; 
 		margin: 10px 0 0 0;
 		padding: 0 0.75rem;
-		
+
+		// * { border: 1px solid red; }
+
+
 		div {
-			// border: 1px solid orange;
 			color: $ash-1;
+			display: flex; flex-direction: column; 
+
+			:nth-child(1) {
+				flex: 1;
+				display: flex; align-items: center;
+			}
+
+			:nth-child(2) {
+				// flex: 1;
+				// margin-top: 10px;
+			}
 		}
+
 
 		div:nth-child(1) {
 			border-radius: 50%;
 			width: 3.5rem; height: 3.5rem;
 			display: flex; align-items: center; justify-content: center;
-			padding: 0;
 			// border: 1px solid orange;
 			background-color: $orange;
 			color: $black;
+		}
+
+		div:nth-child(3) {
+			// border: 1px solid $orange;
+			display: flex; flex-direction: column; align-items: flex-end;
 		}
 	}
 
@@ -72,7 +91,14 @@ a, button, input[type='submit'] {
 		display: flex;
 		padding: 1rem 0.75rem;
 		overflow: auto;
-		
+
+		h4 { 
+			color: $ash-1;
+			text-align: center; 
+			padding: 0;
+			margin: auto;
+		}
+
 		scrollbar-width: none;
 		-ms-overflow-style: none;
 		&::-webkit-scrollbar { width: 0; height: 0; }
@@ -103,3 +129,4 @@ a, button, input[type='submit'] {
 		}
 	}
 }
+
