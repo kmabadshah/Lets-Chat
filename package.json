@@ -13,6 +13,8 @@
     "@hookform/error-message": "^0.0.5",
     "axios": "^0.21.1",
     "bootstrap": "^4.5.3",
+    "emoji-mart": "^3.0.0",
+    "emoji-picker-react": "^3.3.0",
     "gatsby": "^2.26.1",
     "gatsby-image": "^2.5.0",
     "gatsby-plugin-layout": "^1.7.0",

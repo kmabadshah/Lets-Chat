@@ -3,14 +3,16 @@ import { Context } from '../components/wrapper'
 import { Link, navigate } from 'gatsby'
 import { useForm } from 'react-hook-form'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
-import { faCheckCircle, faSmile } from '@fortawesome/free-regular-svg-icons'
+import { faArrowLeft, faCheck } from '@fortawesome/free-solid-svg-icons'
+import { faCheckCircle, faSmile, faClock } from '@fortawesome/free-regular-svg-icons'
+import { Picker } from 'emoji-mart'
 
 export default function Chat() {
 	const { user, setUser, friendIndex,
 		socket, token, connectedUsers, setConnectedUsers } = React.useContext(Context)
 	const { register, handleSubmit, reset } = useForm()
 	const [friendOffline, setFriendOffline] = useState()
+	const [showPicker, setShowPicker] = useState(false)
 	const friend = user.friends[friendIndex]
 	const dummyRef = React.useRef()
 
@@ -25,15 +27,22 @@ export default function Chat() {
 		dummyRef.current.scrollIntoView()
 	}, [])
 
-
 	const onSubmit = (d) => {
+		// update the user with the new message
+		// and a pending property inside the message
+		const temp = {...user}
+		temp.friends.find(f => f.uname === friend.uname).messagesSentByMe.push({
+			text: d.msg,
+			pending: true
+		}); setUser(temp)
+
 		// send message and upate local user after response
 		socket.emit('message', d.msg, friend.uname, token, (updatedUser) => {
 			setUser(updatedUser)
 			// scroll to message bottom
-			dummyRef.current.scrollIntoView()
 		})
 
+		dummyRef.current.scrollIntoView()
 		reset()
 	}
 
@@ -56,23 +65,27 @@ export default function Chat() {
 							<p>{date.hourAndMinute}</p>
 						</div>
 					</div>
-				) ,
+				),
 				sent_at: new Date(m.sent_at).getTime()
 			})
 		})
 
 		// sent messages
 		user.friends[friendIndex].messagesSentByMe.forEach(m => {
+			let date = getDateObj(m)
+
 			allViewMessages.push({
 				view: (
 					<div className='msg-sent-row'>
-						<div>
-							<p> 28 August </p>
-							<p> 10:30 pm </p>
-						</div>
+						{!date ? <div></div> : (
+							<div>
+								<p>{date.day} {date.month}</p>
+								<p>{date.hourAndMinute}</p>
+							</div>
+						)}
 
 						<div>
-							<FontAwesomeIcon icon={faCheckCircle} className='check-circle' />
+							<FontAwesomeIcon icon={m.pending ? faClock : faCheckCircle} className='check-circle' />
 							<p>{m.text}</p>
 						</div>
 					</div>
@@ -95,23 +108,35 @@ export default function Chat() {
 				<FontAwesomeIcon className='btn-back' onClick={() => navigate('/')} icon={faArrowLeft} />
 
 				<h2>Jane Doe</h2>
+
 			</div>
 
 			<div id="middle">
 				{getViewMessages()}
 
-				{/* dummy div for scrolling */}
+				{/* dummy div for scrolling and emoji */}
 				<div ref={dummyRef}></div>
+
+				{showPicker && <Picker style={{
+					position: 'fixed',
+					bottom: '5rem'
+				}} />}
+
 			</div>
 
 			<form id='bottom' autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
-				<FontAwesomeIcon icon={faSmile} />
+
+				<FontAwesomeIcon
+					icon={faSmile}
+					onClick={() => setShowPicker(!showPicker)} />
 
 				<input autoComplete='false' name='msg' ref={register({
 					required: true
 				})} />
 
-				<input type="submit" value="Send" />
+				<button type="submit">
+					<FontAwesomeIcon icon={faCheck} />
+				</button>
 			</form>
 		</div>
 	)
@@ -119,7 +144,7 @@ export default function Chat() {
 
 
 function getDateObj(m) {
-	return {
+	return !m.sent_at ? null : {
 		day: new Date(m.sent_at).getDate(),
 		month: new Date(m.sent_at).toLocaleString('default', { month: 'long' }),
 		get hourAndMinute() {
@@ -138,3 +163,11 @@ function getDateObj(m) {
 		}
 	}
 }
+
+
+
+
+// 1) change the loading spinner icon when sending message
+// 2) change the loading spinner depending on pending state
+
+

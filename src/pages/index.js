@@ -9,7 +9,8 @@ import '../styles/css/index.css'
 
 function Index(){
 	const { user, setUser, isLoading, socket, setSocket,
-		connectedUsers, setConnectedUsers, setFriendIndex } = React.useContext(Context)
+		connectedUsers, setConnectedUsers, setFriendIndex, token
+	} = React.useContext(Context)
 
 	React.useEffect(() => {
 		if (!socket) { // make the connection
@@ -22,8 +23,11 @@ function Index(){
 		}
 	}, [socket])
 
-	const onChatClick = (i) => {
+	const onChatClick = (f, i) => {
 		setFriendIndex(i)
+		socket.emit('wanna_chat', f.uname, token, (updatedUser) => {
+			setUser(updatedUser)
+		})
 		navigate('/chat')
 	}
 
@@ -35,7 +39,7 @@ function Index(){
 			user.friends.map((f, i) => {
 				cu.uname === f.uname && finalArr.push((() => {
 					return (
-						<button onClick={() => onChatClick(i)}>
+						<button onClick={() => onChatClick(f, i)}>
 							{f.image ? 'img' : f.uname.toUpperCase()[0]}
 						</button>
 					)
@@ -60,36 +64,38 @@ function Index(){
 					return Date.parse(m2.sent_at) - Date.parse(m1.sent_at)
 				})[0]
 
-			const latestMsgDate = {
-				day: new Date(sent_at).getDate(),
-				month: new Date(sent_at).toLocaleString('default', { month: 'long' }),
-				get hourAndMinute() {
-					const hour = new Date(sent_at).getHours()
-					const minute = new Date(sent_at).getMinutes()
-					let stringToReturn = ':' + minute
+			if ()
 
-					if (hour > 12) stringToReturn = (hour - 12) + stringToReturn + ' pm'
-					else stringToReturn = hour + stringToReturn + ' am'
+				const latestMsgDate = {
+					day: new Date(sent_at).getDate(),
+					month: new Date(sent_at).toLocaleString('default', { month: 'long' }),
+					get hourAndMinute() {
+						const hour = new Date(sent_at).getHours()
+						const minute = new Date(sent_at).getMinutes()
+						let stringToReturn = ':' + minute
 
-					return stringToReturn
+						if (hour > 12) stringToReturn = (hour - 12) + stringToReturn + ' pm'
+						else stringToReturn = hour + stringToReturn + ' am'
+
+						return stringToReturn
+					}
 				}
-			}
 
 			return (
-				<div className='row-friend' onClick={() => onChatClick(i)}>
+				<div className='row-friend' onClick={() => onChatClick(f, i)}>
 					<div className="img">img</div>
 
-						<div>
+					<div>
 						<h3> {f.uname} </h3>
-							<h5> {latestMessage} </h5>
-						</div>
+						<h5> {latestMessage} </h5>
+					</div>
 
-						<div>
+					<div>
 						<h5> {latestMsgDate.day}th {latestMsgDate.month} </h5>
-							<h5> {latestMsgDate.hourAndMinute} </h5>
-						</div>
+						<h5> {latestMsgDate.hourAndMinute} </h5>
+					</div>
 				</div>
-					)
+			)
 		})
 	}
 
@@ -100,9 +106,6 @@ function Index(){
 				{getViewFriends()}
 			</div>
 		</Layout>
-			)
+	)
 }
 export default Index
-
-
-
