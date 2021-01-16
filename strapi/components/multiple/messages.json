@@ -13,6 +13,10 @@
     },
     "sent_at": {
       "type": "datetime"
+    },
+    "status": {
+      "type": "string",
+      "required": true
     }
   }
 }

@@ -11,12 +11,12 @@
       "type": "string",
       "required": true
     },
-    "messages_sent_by_me": {
+    "messagesSentByMe": {
       "type": "component",
       "repeatable": true,
       "component": "multiple.messages"
     },
-    "messages_sent_to_me": {
+    "messagesSentToMe": {
       "type": "component",
       "repeatable": true,
       "component": "multiple.messages"
