@@ -39,8 +39,10 @@ export default function Wrapper({ children, location }) {
                         _where: { uname: decData.uname }
                     }), { headers: { Authorization: `Bearer ${jwt}` } })
 
-                    setUser(res.data[0])
-                    foundUser = true
+                    if (res.data[0]) {
+                        foundUser = true
+                        setUser(res.data[0])
+                    }
                 }
             }
 
@@ -65,21 +67,14 @@ export default function Wrapper({ children, location }) {
 
     React.useEffect(() => {
         // update the user data on local update
-        if (user && token) {
+        // user && user.friends[0] && console.log(user.friends[0].messagesSentByMe)
+        if (user && token && !user.dontUpdate) {
             axios.put(api+'/chatters/'+user.id, user, {
                 headers: { Authorization: `Bearer ${token}` }
             }).then(null).catch(err => console.log(err))
         }
     }, [user])
 
-    React.useEffect(() => {
-        if (socket) {
-            socket.on('connectedUsers', (d) => setConnectedUsers(d))
-            socket.on('message', d => setUser(d))
-
-            return () => socket.off()
-        }
-    }, [socket])
 
     return (
         <Context.Provider value={{

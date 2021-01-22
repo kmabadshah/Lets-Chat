@@ -1,4 +1,7 @@
 @use "./chat";
+@use './settings';
+@use './login';
+@use './signup';
 @import './variables';
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap');
 
@@ -48,43 +51,52 @@ a, button, input[type='submit'] {
 
 #home {
 	.row-friend {
-		display: grid;
-		grid-template: auto auto / repeat(3, auto);
+		display: flex;
 		margin: 10px 0 0 0;
 		padding: 0 0.75rem;
-
-		// * { border: 1px solid red; }
-
-
-		div {
-			color: $ash-1;
-			display: flex; flex-direction: column; 
-
-			:nth-child(1) {
-				flex: 1;
-				display: flex; align-items: center;
-			}
-
-			:nth-child(2) {
-				// flex: 1;
-				// margin-top: 10px;
-			}
-		}
+		justify-content: end;
 
 
-		div:nth-child(1) {
+		&>:nth-child(1) {
 			border-radius: 50%;
+			flex-shrink: 0;
 			width: 3.5rem; height: 3.5rem;
 			display: flex; align-items: center; justify-content: center;
-			// border: 1px solid orange;
 			background-color: $orange;
 			color: $black;
 		}
 
-		div:nth-child(3) {
-			// border: 1px solid $orange;
-			display: flex; flex-direction: column; align-items: flex-end;
+		// *{ border: 1px solid red; }
+		&>:nth-child(2) {
+			width: 100%; display: flex; flex-wrap: wrap;
+			color: $ash-1; margin-left: 2rem;
+
+			&>:nth-child(1) {
+				display: flex; align-items: flex-end;
+			}
+
+			&>:nth-child(2) {
+				display: flex; align-items: center; justify-content: center;
+				background-color: $green; border-radius: 50%;
+				margin: auto auto 0 10px; width: 1.2rem; height: 1.2rem;
+				font-size: 0.75rem; color: $black;
+			}
+
+			&>:nth-child(3) {
+				display: flex;
+				flex: 1;
+				align-items: flex-end; justify-content: flex-end;
+			}
+
+			&>:nth-last-child(2) {
+				flex: 1;
+			}
+
+			&>:nth-last-child(1) {
+				margin-left: auto;
+			} 
 		}
+
 	}
 
 	.row-active {

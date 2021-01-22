@@ -103,6 +103,153 @@
   border: 1px solid purple;
 }
 
+#settings {
+  color: #999999;
+}
+#settings * {
+  font-weight: 400;
+}
+#settings > *:not(:nth-child(5)) {
+  padding: 1rem;
+  font-size: 1rem;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  border: 0.1px solid rgba(153, 153, 153, 0.3);
+  background-color: transparent;
+  color: #999999;
+}
+#settings > :nth-child(1) .icon-add {
+  transform: scaleX(-1);
+}
+#settings > :nth-child(2) > :nth-child(2) {
+  margin-left: auto;
+  color: #999999;
+}
+#settings > :nth-child(2) > :nth-child(3) {
+  margin-left: 1rem;
+}
+#settings > :nth-child(3) > :nth-child(2) {
+  margin-left: auto;
+  color: #999999;
+}
+#settings > :nth-child(3) > :nth-child(3) {
+  margin-left: 1rem;
+}
+#settings > :nth-child(4) > :nth-child(2) {
+  font-size: 1.25rem;
+}
+#settings > :nth-child(5) {
+  border: 1px solid red;
+  position: fixed;
+  top: 25%;
+  left: 20%;
+  right: 20%;
+}
+#settings > :nth-child(5) > input {
+  width: 100%;
+  background-color: #999999;
+  border: none;
+  height: 2rem;
+}
+#settings > :nth-child(5) > :nth-child(1) {
+  margin-bottom: 0.25rem;
+}
+#settings > :nth-child(5) > :nth-last-child(-n+2) {
+  width: 50%;
+  margin-top: 0.5rem;
+}
+
+#login {
+  background-color: #122C34;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#login form {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  color: #EF7B6C;
+}
+#login form > input {
+  color: #122C34;
+  font-size: 1rem;
+  background-color: #C4C4C4;
+  height: 2.5rem;
+  margin-top: 0.75rem;
+  border: none;
+  padding: 1rem;
+}
+#login form > input::placeholder {
+  color: rgba(0, 0, 0, 0.33);
+}
+#login form > :nth-last-child(1) {
+  margin-top: 0.75rem;
+  display: flex;
+  justify-content: space-between;
+}
+#login form > :nth-last-child(1) > :nth-child(1) {
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  color: #122C34;
+  background-color: #C4C4C4;
+  border: none;
+}
+#login form > :nth-last-child(1) > :nth-child(2) {
+  background-color: transparent;
+  color: #EF7B6C;
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+}
+
+#signup {
+  background-color: #122C34;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#signup form {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  color: #EF7B6C;
+}
+#signup form > input {
+  color: #122C34;
+  font-size: 1rem;
+  background-color: #C4C4C4;
+  height: 2.5rem;
+  margin-top: 0.75rem;
+  border: none;
+  padding: 1rem;
+}
+#signup form > input::placeholder {
+  color: rgba(0, 0, 0, 0.33);
+}
+#signup form > :nth-last-child(1) {
+  margin-top: 0.75rem;
+  display: flex;
+  justify-content: space-between;
+}
+#signup form > :nth-last-child(1) > :nth-child(1) {
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  color: #122C34;
+  background-color: #C4C4C4;
+  border: none;
+}
+#signup form > :nth-last-child(1) > :nth-child(2) {
+  background-color: transparent;
+  color: #EF7B6C;
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -143,23 +290,14 @@ a, button, input[type=submit] {
 }
 
 #home .row-friend {
-  display: grid;
-  grid-template: auto auto/repeat(3, auto);
+  display: flex;
   margin: 10px 0 0 0;
   padding: 0 0.75rem;
+  justify-content: end;
 }
-#home .row-friend div {
-  color: #999999;
-  display: flex;
-  flex-direction: column;
-}
-#home .row-friend div :nth-child(1) {
-  flex: 1;
-  display: flex;
-  align-items: center;
-}
-#home .row-friend div:nth-child(1) {
+#home .row-friend > :nth-child(1) {
   border-radius: 50%;
+  flex-shrink: 0;
   width: 3.5rem;
   height: 3.5rem;
   display: flex;
@@ -168,10 +306,40 @@ a, button, input[type=submit] {
   background-color: #EF7B6C;
   color: #122C34;
 }
-#home .row-friend div:nth-child(3) {
+#home .row-friend > :nth-child(2) {
+  width: 100%;
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  color: #999999;
+  margin-left: 2rem;
+}
+#home .row-friend > :nth-child(2) > :nth-child(1) {
+  display: flex;
   align-items: flex-end;
+}
+#home .row-friend > :nth-child(2) > :nth-child(2) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #A1CCA5;
+  border-radius: 50%;
+  margin: auto auto 0 10px;
+  width: 1.2rem;
+  height: 1.2rem;
+  font-size: 0.75rem;
+  color: #122C34;
+}
+#home .row-friend > :nth-child(2) > :nth-child(3) {
+  display: flex;
+  flex: 1;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+#home .row-friend > :nth-child(2) > :nth-last-child(2) {
+  flex: 1;
+}
+#home .row-friend > :nth-child(2) > :nth-last-child(1) {
+  margin-left: auto;
 }
 #home .row-active {
   display: flex;

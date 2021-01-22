@@ -6,13 +6,57 @@ $ash-05: rgba(153, 153, 153, 0.5);
 $green: #A1CCA5;
 $dark-green: #3A6B2E;
 
+@mixin login-and-signup {
+	background-color: $black;
+	height: 100%;
+	display: flex; justify-content: center; align-items: center;
+
+	form {
+		display: flex; flex-direction: column;
+		text-align: center;
+		color: $orange;
+
+		&>input {
+			&::placeholder {
+				color: rgba(0, 0, 0, 0.33);
+			}
+			color: $black;
+			font-size: 1rem;
+			background-color: #C4C4C4;
+			height: 2.5rem;
+			margin-top: 0.75rem;
+			border: none;
+			padding: 1rem;
+		}
+
+		&>:nth-last-child(1) {
+			margin-top: 0.75rem;
+			display: flex; justify-content: space-between;
+
+			&>:nth-child(1) {
+				padding: 0.5rem 1rem;
+				font-size: 0.9rem;
+				color: $black;
+				background-color: #C4C4C4;
+				border: none;
+			}
+
+			&>:nth-child(2) {
+				background-color: transparent;
+				color: $orange;
+				display: flex; align-items: center;
+				font-size: 0.9rem;
+			}
+		}
+	}
+}
 
 @mixin msg-row($direction) {
 	display: flex;
 	margin: 2rem 0;
 
-	$msg_is_the_nth_child_of_the_parent: 1;
-	$date_is_the_nth_child_of_the_parent: 2;
+	$msg_is_the_nth_child_of_the_parent: null;
+	$date_is_the_nth_child_of_the_parent: null;
 
 	@if $direction == left {
 		$msg_is_the_nth_child_of_the_parent: 1;

@@ -1,0 +1,70 @@
+@import 'variables';
+
+#settings {
+	color: $ash-1;
+
+	* { font-weight: 400; }
+
+	&>*:not(:nth-child(5)) {
+		padding: 1rem;
+		font-size: 1rem;
+		width: 100%;
+		display: flex; justify-content: space-between;
+		border: 0.1px solid $ash-03;
+		background-color: transparent; 
+		color: $ash-1;
+	}
+
+	&>:nth-child(1) {
+		.icon-add {
+			transform: scaleX(-1);
+		}
+	}
+
+	&>:nth-child(2) {
+		&>:nth-child(2) {
+			margin-left: auto;
+			color: $ash-1;
+		}
+
+		&>:nth-child(3) {
+			margin-left: 1rem;
+		}
+	}
+
+	&>:nth-child(3) {
+		&>:nth-child(2) {
+			margin-left: auto;
+			color: $ash-1;
+		}
+
+		&>:nth-child(3) {
+			margin-left: 1rem;
+		}
+	}
+
+	&>:nth-child(4)>:nth-child(2) { font-size: 1.25rem; } 
+
+
+	&>:nth-child(5) {
+		border: 1px solid red;
+		position: fixed;
+		top: 25%; left: 20%; right: 20%;
+
+		&>input { 
+			width: 100%; 
+			background-color: $ash-1; 
+			border: none; 
+			height: 2rem;
+		}
+
+		&>:nth-child(1) { margin-bottom: 0.25rem; }
+
+		&>:nth-last-child(-n+2) { // select last 2 items
+			width: 50%;
+			margin-top: 0.5rem;
+			// border: 3px solid purple;
+		}
+	}
+}
+

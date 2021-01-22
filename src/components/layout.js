@@ -1,9 +1,9 @@
 import React, {useState} from 'react'
 import { Link } from 'gatsby'
 
-function Layout({ children }){
+function Layout({ children, style }){
 	return(
-		<div id='layout'>
+		<div id='layout' style={style}>
 			<div id='navbar'>
 				<Link to='/'>Home</Link>
 				<Link to='/settings'>Settings</Link>

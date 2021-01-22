@@ -1,10 +1,12 @@
+/* global user */
+
 import React, {useState} from "react"
 import { Context } from '../components/wrapper'
 import { Link, navigate } from 'gatsby'
 import { useForm } from 'react-hook-form'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowLeft, faCheck } from '@fortawesome/free-solid-svg-icons'
-import { faCheckCircle, faSmile, faClock } from '@fortawesome/free-regular-svg-icons'
+import { faArrowLeft, faCheck, faCheckCircle as fasCheckCircle } from '@fortawesome/free-solid-svg-icons'
+import { faCheckCircle as farCheckCircle, faSmile, faClock } from '@fortawesome/free-regular-svg-icons'
 import { Picker } from 'emoji-mart'
 
 export default function Chat() {
@@ -13,8 +15,8 @@ export default function Chat() {
 	const { register, handleSubmit, reset } = useForm()
 	const [friendOffline, setFriendOffline] = useState()
 	const [showPicker, setShowPicker] = useState(false)
-	const friend = user.friends[friendIndex]
 	const dummyRef = React.useRef()
+	const friend = user.friends[friendIndex]
 
 	React.useEffect(() => {
 		setFriendOffline(() => {
@@ -22,19 +24,34 @@ export default function Chat() {
 		})
 	}, [connectedUsers])
 
+	React.useEffect(() => {
+		socket.on('connectedUsers', (d) => setConnectedUsers(d))
+		socket.on('message', updatedUser => {
+			setUser(updatedUser)
+			dummyRef.current.scrollIntoView()
+		})
+		socket.on('entering', updatedUser => setUser(updatedUser))
+
+		return () => {
+			socket.emit('leaving')
+			socket.off()
+		}
+	}, [])
+
 	React.useLayoutEffect(() => {
 		// scroll to message bottom
 		dummyRef.current.scrollIntoView()
 	}, [])
 
 	const onSubmit = (d) => {
-		// update the user with the new message
-		// and a pending property inside the message
-		const temp = {...user}
-		temp.friends.find(f => f.uname === friend.uname).messagesSentByMe.push({
-			text: d.msg,
-			pending: true
-		}); setUser(temp)
+		setUser(currUser => {
+			currUser.friends.find(f => f.uname === friend.uname).messagesSentByMe.push({
+				text: d.msg, sent_at: Date.now(), status: 'sending'
+			})
+
+			return { ...currUser, dontUpdate: true }
+		})
+
 
 		// send message and upate local user after response
 		socket.emit('message', d.msg, friend.uname, token, (updatedUser) => {
@@ -61,8 +78,8 @@ export default function Chat() {
 						</div>
 
 						<div>
-							<p>{date.day} {date.month}</p>
-							<p>{date.hourAndMinute}</p>
+							<p>{date && date.date}</p>
+							<p>{date && date.hourAndMinute}</p>
 						</div>
 					</div>
 				),
@@ -79,14 +96,21 @@ export default function Chat() {
 					<div className='msg-sent-row'>
 						{!date ? <div></div> : (
 							<div>
-								<p>{date.day} {date.month}</p>
-								<p>{date.hourAndMinute}</p>
+								<p>{date && date.date}</p>
+								<p>{date && date.hourAndMinute}</p>
 							</div>
 						)}
 
 						<div>
-							<FontAwesomeIcon icon={m.pending ? faClock : faCheckCircle} className='check-circle' />
+							<FontAwesomeIcon icon={(() => {
+								switch (m.status) {
+									case 'sending': return faClock
+									case 'sent': return farCheckCircle
+									case 'seen': return fasCheckCircle
+								}
+							})()} className='check-circle' />
 							<p>{m.text}</p>
+
 						</div>
 					</div>
 				) ,
@@ -107,7 +131,7 @@ export default function Chat() {
 			<div id="top">
 				<FontAwesomeIcon className='btn-back' onClick={() => navigate('/')} icon={faArrowLeft} />
 
-				<h2>Jane Doe</h2>
+				<h2>{ friend.uname }</h2>
 
 			</div>
 
@@ -145,8 +169,30 @@ export default function Chat() {
 
 function getDateObj(m) {
 	return !m.sent_at ? null : {
-		day: new Date(m.sent_at).getDate(),
-		month: new Date(m.sent_at).toLocaleString('default', { month: 'long' }),
+		get date() {
+			const currDay = new Date().getDate()
+			const currMonth = new Date().getMonth()
+			const currYear = new Date().getFullYear()
+
+			const day = new Date(m.sent_at).getDate()
+			const month = new Date(m.sent_at).getMonth()
+			const monthName = new Date(m.sent_at).toLocaleString('default', { month: 'long' })
+			const year = new Date(m.sent_at).getFullYear()
+
+			if (currYear ===  year) {
+				if (month === currMonth) {
+					if (currDay === day) return 'Today'
+					if (currDay - day === 1) return 'Yesterday'
+					if (currDay - day < 7) return new Date(m.sent_at).toLocaleString('en', { weekday: 'long' })
+					if (currDay - day >= 7 && currDay - day < 14) return 'Last Week'
+				}
+				else if (currMonth - month === 1) return 'Last Month'
+				else return day + 'th ' + monthName
+			} else {
+				return `${day}th ${monthName}, ${year}`
+			}
+
+		},
 		get hourAndMinute() {
 			const hour = new Date(m.sent_at).getHours()
 			const minute = new Date(m.sent_at).getMinutes()
@@ -164,10 +210,5 @@ function getDateObj(m) {
 	}
 }
 
-
-
-
-// 1) change the loading spinner icon when sending message
-// 2) change the loading spinner depending on pending state
 
 
