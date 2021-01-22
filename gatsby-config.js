@@ -1,4 +1,5 @@
 module.exports = {
+  pathPrefix: '/letschat',
   siteMetadata: {
     title: `Socket Chat`,
     description: `Chat app built with Gatsby, Strapi and Socket.io`,
