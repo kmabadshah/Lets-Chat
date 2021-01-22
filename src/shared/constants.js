@@ -13,6 +13,7 @@ export const errors = {
 }
 
 export const secret = "supersecretkey"
+export const emojiApi = "https://emoji-api.com/emojis?search=face&access_key=e3d4c12e66b56d3a162e9c16e03bed9dd21ff571"
 
 export const loader = <h1 style={{ color: "white" }}>Loading...</h1>
 

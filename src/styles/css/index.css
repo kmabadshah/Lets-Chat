@@ -78,7 +78,8 @@
   border-radius: 50px;
   margin: 1rem;
   padding: 0.75rem 1rem;
-  background-color: white;
+  background-color: #F1F2EE;
+  pointer-events: none;
 }
 #chat #bottom * {
   background-color: transparent;
@@ -98,9 +99,15 @@
 #chat #bottom :nth-child(3) {
   font-size: 1rem;
 }
-#chat .picker {
-  width: 100vw;
-  border: 1px solid purple;
+#chat #picker {
+  display: grid;
+  grid-template-rows: repeat(4, 1fr);
+  background-color: #F1F2EE;
+  overflow: auto;
+  height: 10rem;
+}
+#chat #picker > * {
+  font-size: 1.75rem;
 }
 
 #settings {

@@ -71,9 +71,7 @@ a, button, input[type='submit'] {
 			width: 100%; display: flex; flex-wrap: wrap;
 			color: $ash-1; margin-left: 2rem;
 
-			&>:nth-child(1) {
-				display: flex; align-items: flex-end;
-			}
+			&>:nth-child(1) { display: flex; align-items: flex-end; }
 
 			&>:nth-child(2) {
 				display: flex; align-items: center; justify-content: center;
@@ -83,18 +81,13 @@ a, button, input[type='submit'] {
 			}
 
 			&>:nth-child(3) {
-				display: flex;
-				flex: 1;
+				display: flex; flex: 1; 
 				align-items: flex-end; justify-content: flex-end;
 			}
 
-			&>:nth-last-child(2) {
-				flex: 1;
-			}
+			&>:nth-last-child(2) { flex: 1; }
 
-			&>:nth-last-child(1) {
-				margin-left: auto;
-			} 
+			&>:nth-last-child(1) { margin-left: auto; } 
 		}
 
 	}

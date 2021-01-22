@@ -82,7 +82,7 @@ export default function Wrapper({ children, location }) {
             isLoading, token,
             socket, setSocket,
             friendIndex, setFriendIndex,
-            connectedUsers, setConnectedUsers
+            connectedUsers, setConnectedUsers,
         }}>
             {getView()}
         </Context.Provider>

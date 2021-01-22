@@ -1,6 +1,6 @@
 import React, {useState} from "react"
 import { Context } from '../components/wrapper.js'
-import { socketServer, loader } from "../shared/constants"
+import { socketServer, loader, emojiApi } from "../shared/constants"
 import io from 'socket.io-client'
 import Layout from '../components/layout'
 import { Link, navigate } from 'gatsby'
@@ -8,8 +8,10 @@ import { Link, navigate } from 'gatsby'
 import '../styles/css/index.css'
 
 function Index(){
-	const { user, setUser, isLoading, socket, setSocket,
-		connectedUsers, setConnectedUsers, setFriendIndex, token
+	const {
+		user, setUser, isLoading,
+		socket, setSocket, connectedUsers,
+		setConnectedUsers, setFriendIndex, token
 	} = React.useContext(Context)
 
 	React.useEffect(() => {
@@ -83,8 +85,6 @@ function Index(){
 				var { text, sent_at } = latestMsg
 
 				var latestMsgDate = { // becomes a part of the function context because of var
-					day: new Date(sent_at).getDate(),
-					month: new Date(sent_at).toLocaleString('default', { month: 'long' }),
 					get date() {
 						const currDay = new Date().getDate()
 						const currMonth = new Date().getMonth()
@@ -131,7 +131,8 @@ function Index(){
 					<div>
 						<h3> {f.uname} </h3>
 						<p style={{opacity: !unseenMsgCount && 0}}> {unseenMsgCount} </p>
-						<h5>{latestMsgDate.date}</h5>
+						<h5>{latestMsgDate && latestMsgDate.date}</h5>
+
 						<div style={{flexBasis: '100%', height: 0}}></div>
 						<h5> {text && text.length > 25 ? text.slice(0, 25) + '...' : text } </h5>
 						<h5> {latestMsgDate && latestMsgDate.hourAndMinute} </h5>
